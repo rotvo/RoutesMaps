@@ -26,6 +26,7 @@ interface IColumn {
 export default function Page() {
   const [vehicles, setvehicles] = useState([]);
   const [loading, setloading] = useState(false);
+  const [selecteVehicle, setselecteVehicle] = useState({} as any);
   const columns = [
     { id: 'placa', label: 'Plate', width: 130 },
     { id: 'numero_economico', label: 'Economic Number', width: 130 },
@@ -70,6 +71,7 @@ export default function Page() {
       .get('http://localhost:9000/api/vehicles/' + vehicle._id)
       .then((response) => {
         console.log(response.data);
+        setselecteVehicle(response.data);
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
@@ -89,6 +91,15 @@ export default function Page() {
     setPage(0);
   };
 
+  function onchangeForm(e: any) {
+    const { name, value } = e.target;
+    setselecteVehicle({
+      ...selecteVehicle,
+      [name]: value,
+    });
+    console.log(value);
+  }
+
   return (
     <div>
       <div className="my-8 flex">
@@ -104,12 +115,221 @@ export default function Page() {
                 >
                   Information of the vehicle
                 </Typography>
-                <Typography variant="h5" component="div">
-                 AA
+                <Typography variant="h5" component="div" className="mb-4">
+                  {selecteVehicle.BRAND}-{selecteVehicle.MODEL}-
+                  {selecteVehicle.YEAR}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  adjective
-                </Typography>
+                {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  Placa
+                </Typography> */}
+
+                <form className="mx-auto max-w-md">
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="placa"
+                        id="floating_placa"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.placa}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_placa"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        placa
+                      </label>
+                    </div>
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="numero_economico"
+                        id="floating_placa"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.numero_economico}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_last_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        numero_economico
+                      </label>
+                    </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="vim"
+                        id="vim"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.vim}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_first_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        vim
+                      </label>
+                    </div>
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="tipo"
+                        id="tipo"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.tipo}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_last_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        tipo
+                      </label>
+                    </div>
+                    
+                  </div>
+
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="status"
+                        id="status"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.status === true ? 'Activo' : selecteVehicle.status === false ? 'Inactivo' : ''}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_first_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        status
+                      </label>
+                    </div>
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="asientos"
+                        id="asientos"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.asientos}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_last_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        asientos
+                      </label>
+                    </div>
+                    
+                  </div>
+
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="seguro"
+                        id="seguro"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.seguro}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_first_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        seguro
+                      </label>
+                    </div>
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="tipo"
+                        id="tipo"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.tipo}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_last_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        segure_numebr
+                      </label>
+                    </div>
+                    
+                  </div>
+
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="vim"
+                        id="vim"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.vim}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_first_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        vim
+                      </label>
+                    </div>
+                    <div className="group relative z-0 mb-5 w-full">
+                      <input
+                        type="text"
+                        name="tipo"
+                        id="tipo"
+                        className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+                        placeholder=""
+                        onChange={onchangeForm}
+                        value={selecteVehicle.tipo}
+                        required
+                      />
+                      <label
+                        htmlFor="floating_last_name"
+                        className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                      >
+                        tipo
+                      </label>
+                    </div>
+                    
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+                  >
+                    Edit
+                  </button>
+                </form>
+
                 <Typography variant="body2">
                   well meaning and kindly.
                   <br />
