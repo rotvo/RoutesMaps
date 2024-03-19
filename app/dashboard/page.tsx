@@ -14,6 +14,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Mapa from '../ui/Mapa';
+import 'leaflet/dist/leaflet.css';
+
+
 
 interface IColumn {
   id: 'name' | 'code' | 'population' | 'size' | 'density';
@@ -28,17 +32,18 @@ export default function Page() {
   const [loading, setloading] = useState(false);
   const [selecteVehicle, setselecteVehicle] = useState({} as any);
   const columns = [
-    { id: 'placa', label: 'Plate', width: 130 },
-    { id: 'numero_economico', label: 'Economic Number', width: 130 },
-    { id: 'tipo', label: 'Type', width: 130 },
+    { id: 'plate', label: 'Plate', width: 130 },
+    { id: 'numero_economico', label: 'Economic Number', width: 150 },
+    { id: 'type', label: 'Type', width: 130 },
     {
       id: 'status',
       label: 'Status',
       width: 130,
       format: (value: any) => (value ? 'Activo' : 'Inactivo'),
     },
-    { id: 'BRAND', label: 'BRAND', width: 130 },
-    { id: 'MODEL', label: 'MODEL', width: 130 },
+    { id: 'brand', label: 'Brand', width: 130 },
+    { id: 'model', label: 'Model', width: 130 },
+    { id: 'year', label: 'year', width: 130 },
   ];
 
   //   function formatStatus (value: boolean) {
@@ -100,10 +105,25 @@ export default function Page() {
     console.log(value);
   }
 
+  const recorrido = [
+[25.561110, -103.518540],
+[25.561550, -103.517950],
+[25.558710, -103.514910],
+[25.560340, -103.513610],
+[25.557400, -103.510520],
+[25.556940, -103.509770],
+[25.556500, -103.509510],
+[25.555990, -103.510080],
+[25.556100, -103.510190],
+[25.555800, -103.510550]
+];
+
   return (
     <div>
       <div className="my-8 flex">
-        <div className=" h-96 basis-3/4 bg-red-200">mapa</div>
+        <div className=" h-96  basis-2/4 outline  ">
+         <Mapa recorrido={recorrido} initialPosition={recorrido[0]} />
+        </div>
         <div className="basis-1/4 ">
           <div>
             <Card sx={{ minWidth: 275 }}>
@@ -128,12 +148,12 @@ export default function Page() {
                     <div className="group relative z-0 mb-5 w-full">
                       <input
                         type="text"
-                        name="placa"
+                        name="plate"
                         id="floating_placa"
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
                         placeholder=""
                         onChange={onchangeForm}
-                        value={selecteVehicle.placa}
+                        value={selecteVehicle.plate}
                         required
                       />
                       <label
@@ -224,12 +244,12 @@ export default function Page() {
                     <div className="group relative z-0 mb-5 w-full">
                       <input
                         type="text"
-                        name="asientos"
-                        id="asientos"
+                        name="seats"
+                        id="seats"
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
                         placeholder=""
                         onChange={onchangeForm}
-                        value={selecteVehicle.asientos}
+                        value={selecteVehicle.seats}
                         required
                       />
                       <label
@@ -246,12 +266,12 @@ export default function Page() {
                     <div className="group relative z-0 mb-5 w-full">
                       <input
                         type="text"
-                        name="seguro"
-                        id="seguro"
+                        name="insurance"
+                        id="insurance"
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
                         placeholder=""
                         onChange={onchangeForm}
-                        value={selecteVehicle.seguro}
+                        value={selecteVehicle.insurance}
                         required
                       />
                       <label
@@ -264,19 +284,19 @@ export default function Page() {
                     <div className="group relative z-0 mb-5 w-full">
                       <input
                         type="text"
-                        name="tipo"
-                        id="tipo"
+                        name="insurance_number"
+                        id="insurance_number"
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
                         placeholder=""
                         onChange={onchangeForm}
-                        value={selecteVehicle.tipo}
+                        value={selecteVehicle.insurance_number}
                         required
                       />
                       <label
                         htmlFor="floating_last_name"
                         className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
                       >
-                        segure_numebr
+                        insurance_number
                       </label>
                     </div>
                     
@@ -304,19 +324,19 @@ export default function Page() {
                     <div className="group relative z-0 mb-5 w-full">
                       <input
                         type="text"
-                        name="tipo"
-                        id="tipo"
+                        name="type"
+                        id="type"
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
                         placeholder=""
                         onChange={onchangeForm}
-                        value={selecteVehicle.tipo}
+                        value={selecteVehicle.type}
                         required
                       />
                       <label
                         htmlFor="floating_last_name"
                         className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 dark:text-gray-400 peer-focus:dark:text-blue-500"
                       >
-                        tipo
+                        type
                       </label>
                     </div>
                     
@@ -330,14 +350,10 @@ export default function Page() {
                   </button>
                 </form>
 
-                <Typography variant="body2">
-                  well meaning and kindly.
-                  <br />
-                  {'"a benevolent smile"'}
-                </Typography>
+                
               </CardContent>
-              <CardActions>
-                <Button size="small">Learn More</Button>
+              <CardActions className='flex flex-row-reverse'>
+                <Button className=' end'>Register new car</Button>
               </CardActions>
             </Card>
           </div>
