@@ -14,11 +14,15 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Mapa from '@/app/ui/Mapa';
+// import Mapa from '@/app/ui/Mapa';
 import * as Yup from 'yup';
 import 'leaflet/dist/leaflet.css';
-// import showAlert from './ui/MyAlert';
+import showAlert from './ui/MyAlert';
 import { Menu, MenuItem } from '@mui/material';
+import dynamic from 'next/dynamic';
+const Mapa2 = dynamic(() => import('@/app/ui/Mapa'), {
+  ssr: false,
+});
 
 interface IColumn {
   id: 'name' | 'code' | 'population' | 'size' | 'density';
@@ -174,20 +178,20 @@ export default function Page() {
         console.log(response.data);
         setloading(false);
         consultarAutos();
-        // showAlert({
-        //   title: 'Sucess!',
-        //   text: 'Operation Successfull!',
-        //   icon: 'success',
-        // });
+        showAlert({
+          title: 'Sucess!',
+          text: 'Operation Successfull!',
+          icon: 'success',
+        });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
         setloading(false);
-        // showAlert({
-        //   title: 'Error',
-        //   text: 'There was an error, please try again!',
-        //   icon: 'error',
-        // });
+        showAlert({
+          title: 'Error',
+          text: 'There was an error, please try again!',
+          icon: 'error',
+        });
       });
   }
   async function RegisterVehicle() {
@@ -198,20 +202,20 @@ export default function Page() {
         console.log(response.data);
         setloading(false);
         consultarAutos();
-        // showAlert({
-        //   title: 'Sucess!',
-        //   text: 'Operation Successfull!',
-        //   icon: 'success',
-        // });
+        showAlert({
+          title: 'Sucess!',
+          text: 'Operation Successfull!',
+          icon: 'success',
+        });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
         setloading(false);
-        // showAlert({
-        //   title: 'Error',
-        //   text: 'There was an error, please try again!',
-        //   icon: 'error',
-        // });
+        showAlert({
+          title: 'Error',
+          text: 'There was an error, please try again!',
+          icon: 'error',
+        });
       });
   }
 
@@ -259,19 +263,19 @@ export default function Page() {
       .then((response) => {
         console.log(response.data);
         consultarAutos();
-        // showAlert({
-        //   title: 'Sucess!',
-        //   text: 'Operation Successfull!',
-        //   icon: 'success',
-        // });
+        showAlert({
+          title: 'Sucess!',
+          text: 'Operation Successfull!',
+          icon: 'success',
+        });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
-        // showAlert({
-        //   title: 'Error',
-        //   text: 'There was an error, please try again!',
-        //   icon: 'error',
-        // });
+        showAlert({
+          title: 'Error',
+          text: 'There was an error, please try again!',
+          icon: 'error',
+        });
       });
   }
   let array = [[-99.1332, 19.4326]];
@@ -289,7 +293,7 @@ export default function Page() {
       <div className="mx-4 my-8  flex items-center justify-center 2xl:mx-36 ">
         <div className=" h-[460px]  basis-6/12 outline  ">
           {/* {currentLocationVehicle?.currentLocation?.coordinates ? (<div><Mapa recorrido={array} initialPosition={currentLocationVehicle?.currentLocation?.coordinates[0]} /></div>) : null} */}
-          <Mapa
+          <Mapa2
             recorrido={recorridoState}
             initialPosition={recorridoState[0]}
           />
