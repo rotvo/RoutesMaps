@@ -17,8 +17,6 @@ import Typography from '@mui/material/Typography';
 import Mapa from '@/app/ui/Mapa';
 import * as Yup from 'yup';
 import 'leaflet/dist/leaflet.css';
-import Swal from 'sweetalert2';
-import MyAlert from './ui/MyAlert';
 import showAlert from './ui/MyAlert';
 import { Menu, MenuItem } from '@mui/material';
 
