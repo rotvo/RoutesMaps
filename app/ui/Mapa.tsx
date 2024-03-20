@@ -1,48 +1,36 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import carPng from "/cars/car.png";
 
+const icono = new L.Icon({
+    iconUrl: "/cars/carSVG.svg",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+});
 
-const Mapa = ({ recorrido, initialPosition}) => {
-    const [isClient, setIsClient] = useState(false);
-    const [map, setMap] = useState(null); // Aquí agregas el estado para almacenar la referencia del mapa
-
-    // Define las coordenadas de inicio del mapa (puede ser el centro de tu recorrido)
-    const position = [51.505, -0.09];
-
-    // Define las opciones del icono del marcador
-    const icono = new L.Icon({
-        iconUrl: "/cars/car.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-    });
-
+// Componente para actualizar la posición del mapa
+const UpdateMapView = ({ center }:any) => {
+    const map = useMap();
     useEffect(() => {
-        // Marcar como verdadero solo cuando esté en el cliente
-        setIsClient(true);
-    }, []);
+        map.flyTo(center);
+    }, [center, map]);
+    return null;
+};
 
-    if (!isClient) {
-        return null;
-    }
-
+const Mapa = ({ recorrido, initialPosition }:any) => {
     return (
         <MapContainer
             center={initialPosition}
             zoom={15}
-            style={{ height: '100%', width: '100%' }} 
-            whenCreated={setMap} // Aquí utilizas setMap para almacenar la referencia del mapa creado
+            style={{ height: '100%', width: '100%' }}
         >
-            
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {recorrido.map((punto, index) => (
-                <Marker key={index} position={punto} icon={icono}></Marker>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {recorrido.map((punto: L.LatLngExpression, index: React.Key | null | undefined) => (
+                <Marker key={index} position={punto} icon={icono} />
             ))}
             <Polyline positions={recorrido} />
+            {/* Componente para actualizar la vista del mapa */}
+            <UpdateMapView center={initialPosition} />
         </MapContainer>
     );
 };
