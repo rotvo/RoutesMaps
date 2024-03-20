@@ -5,11 +5,13 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const showAlert = ({ title, text, icon }:any) => {
-  MySwal.fire({
-    title,
-    text,
-    icon,
-  });
+  if (typeof window !== 'undefined') {
+    MySwal.fire({
+      title,
+      text,
+      icon,
+    });
+  }
 };
 
 export default showAlert;
