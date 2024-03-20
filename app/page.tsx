@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import Mapa from '@/app/ui/Mapa';
 import * as Yup from 'yup';
 import 'leaflet/dist/leaflet.css';
-import showAlert from './ui/MyAlert';
+// import showAlert from './ui/MyAlert';
 import { Menu, MenuItem } from '@mui/material';
 
 interface IColumn {
@@ -174,20 +174,20 @@ export default function Page() {
         console.log(response.data);
         setloading(false);
         consultarAutos();
-        showAlert({
-          title: 'Sucess!',
-          text: 'Operation Successfull!',
-          icon: 'success',
-        });
+        // showAlert({
+        //   title: 'Sucess!',
+        //   text: 'Operation Successfull!',
+        //   icon: 'success',
+        // });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
         setloading(false);
-        showAlert({
-          title: 'Error',
-          text: 'There was an error, please try again!',
-          icon: 'error',
-        });
+        // showAlert({
+        //   title: 'Error',
+        //   text: 'There was an error, please try again!',
+        //   icon: 'error',
+        // });
       });
   }
   async function RegisterVehicle() {
@@ -198,20 +198,20 @@ export default function Page() {
         console.log(response.data);
         setloading(false);
         consultarAutos();
-        showAlert({
-          title: 'Sucess!',
-          text: 'Operation Successfull!',
-          icon: 'success',
-        });
+        // showAlert({
+        //   title: 'Sucess!',
+        //   text: 'Operation Successfull!',
+        //   icon: 'success',
+        // });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
         setloading(false);
-        showAlert({
-          title: 'Error',
-          text: 'There was an error, please try again!',
-          icon: 'error',
-        });
+        // showAlert({
+        //   title: 'Error',
+        //   text: 'There was an error, please try again!',
+        //   icon: 'error',
+        // });
       });
   }
 
@@ -259,19 +259,19 @@ export default function Page() {
       .then((response) => {
         console.log(response.data);
         consultarAutos();
-        showAlert({
-          title: 'Sucess!',
-          text: 'Operation Successfull!',
-          icon: 'success',
-        });
+        // showAlert({
+        //   title: 'Sucess!',
+        //   text: 'Operation Successfull!',
+        //   icon: 'success',
+        // });
       })
       .catch((error) => {
         console.error('Error fetching suggestions:', error);
-        showAlert({
-          title: 'Error',
-          text: 'There was an error, please try again!',
-          icon: 'error',
-        });
+        // showAlert({
+        //   title: 'Error',
+        //   text: 'There was an error, please try again!',
+        //   icon: 'error',
+        // });
       });
   }
   let array = [[-99.1332, 19.4326]];
