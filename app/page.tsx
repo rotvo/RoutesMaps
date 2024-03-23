@@ -289,7 +289,7 @@ export default function Page() {
     setAnchorEl(null);
   };
   return (
-    <div className="bg-blue-400">
+    <div className="">
       <div className="mx-4 my-8  flex items-center justify-center 2xl:mx-36 ">
         <div className=" h-[460px]  basis-6/12 outline  ">
           {/* {currentLocationVehicle?.currentLocation?.coordinates ? (<div><Mapa recorrido={array} initialPosition={currentLocationVehicle?.currentLocation?.coordinates[0]} /></div>) : null} */}
@@ -579,7 +579,7 @@ export default function Page() {
                     </form>
                   </div>
                 ) : (
-                  <div className="h-96">Seleccione un vehiculo</div>
+                  <div className="h-96">Select a Vehicle</div>
                 )}
               </CardContent>
               <CardActions className="flex flex-row-reverse"></CardActions>
@@ -589,7 +589,7 @@ export default function Page() {
         {/* <div className="basis-2/12 bg-blue-400">Past trips</div> */}
       </div>
 
-      <div className="my-8 flex items-center justify-center bg-red-400">
+      <div className="my-8 flex items-center justify-center ">
         <div
           className="w-full basis-7/12"
           style={{ height: 500, width: '100%' }}
@@ -605,7 +605,7 @@ export default function Page() {
         onClick={handleClick}
         className='rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 mx-5'
       >
-        Filtros
+        Filters
       </button>
       <Menu
         id="basic-menu"
