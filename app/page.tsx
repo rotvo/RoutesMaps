@@ -80,11 +80,14 @@ export default function Page() {
    await consultarAutos();
   }
 
+  let urlbase = "https://trx-fullstack-dev-technical-test-five.vercel.app/";
+  // let urlbase = "http://localhost:9000";
+
  async function consultarAutos() {
     setloading(true);
     // Construye los parámetros de consulta a partir de los filtrosAutos
     const queryParams = new URLSearchParams(filtrosAutos).toString();
-    const url = `http://localhost:9000/api/vehicles?${queryParams}`;
+    const url = urlbase+`api/vehicles?${queryParams}`;
 
     axios
       .get(url)
@@ -101,7 +104,7 @@ export default function Page() {
 
   function fetchMapData(vehicle: any) {
     axios
-      .get('http://localhost:9000/api/locations/' + vehicle._id)
+      .get(urlbase+'api/locations/' + vehicle._id)
       .then((response) => {
         console.log(response.data);
         setcurrentLocationVehicle(response.data);
@@ -116,7 +119,7 @@ export default function Page() {
     setregisterMode(false);
     fetchMapData(vehicle);
     axios
-      .get('http://localhost:9000/api/vehicles/' + vehicle._id)
+      .get(urlbase+'api/vehicles/' + vehicle._id)
       .then((response) => {
         console.log(response.data);
         setselecteVehicle(response.data);
@@ -171,7 +174,7 @@ export default function Page() {
     setloading(true);
     axios
       .put(
-        'http://localhost:9000/api/vehicles/' + selecteVehicle?._id,
+        urlbase+'api/vehicles/' + selecteVehicle?._id,
         selecteVehicle,
       )
       .then((response) => {
@@ -197,7 +200,7 @@ export default function Page() {
   async function RegisterVehicle() {
     setloading(true);
     axios
-      .post('http://localhost:9000/api/vehicles', selecteVehicle)
+      .post(urlbase+'api/vehicles', selecteVehicle)
       .then((response) => {
         console.log(response.data);
         setloading(false);
@@ -259,7 +262,7 @@ export default function Page() {
   function deletefunction(vehicleID: any) {
     console.log(vehicleID);
     axios
-      .delete('http://localhost:9000/api/vehicles/' + vehicleID._id)
+      .delete(urlbase+'api/vehicles/' + vehicleID._id)
       .then((response) => {
         console.log(response.data);
         consultarAutos();
